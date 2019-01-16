@@ -1,6 +1,7 @@
 package my.examples.jdbcboard.dao;
 
 import my.examples.jdbcboard.dto.Board;
+import my.examples.jdbcboard.util.ConnectionContextHolder;
 import my.examples.jdbcboard.util.DBUtil;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -22,7 +23,7 @@ public class BoardDaoImpl implements BoardDao{
         try {
             // a. DB 연결 - Connection
             //    DB연결을 하려면 필요한 정보가 있다. Driver classname, DB URL, DB UserId , DB User Password
-            conn = DBUtil.getInstance().getConnection();
+            conn = ConnectionContextHolder.getConnection();
 
             // b. SELECT SQL 준비 - Connection
             String sql = "select id,title,content,name,regdate,read_count from board where id = ?";
@@ -50,7 +51,7 @@ public class BoardDaoImpl implements BoardDao{
             ex.printStackTrace();
         }finally {
             // g. ResultSet, PreparedStatement, Connection 순으로 close를 한다.
-            DBUtil.close(rs, ps, conn);
+            DBUtil.close(rs, ps);
         }
 
         return board;
@@ -65,7 +66,7 @@ public class BoardDaoImpl implements BoardDao{
         try {
             // a. DB 연결 - Connection
             //    DB연결을 하려면 필요한 정보가 있다. Driver classname, DB URL, DB UserId , DB User Password
-            conn = DBUtil.getInstance().getConnection();
+            conn = ConnectionContextHolder.getConnection();
             if(conn != null) {
                 System.out.println("conn ok!");
                 System.out.println(conn.getClass().getName());
@@ -98,7 +99,7 @@ public class BoardDaoImpl implements BoardDao{
             ex.printStackTrace();
         }finally {
             // g. ResultSet, PreparedStatement, Connection 순으로 close를 한다.
-            DBUtil.close(rs, ps, conn);
+            DBUtil.close(rs, ps);
         }
         return list;
     }
@@ -108,7 +109,7 @@ public class BoardDaoImpl implements BoardDao{
         Connection conn = null;
         PreparedStatement ps = null;
         try{
-            conn = DBUtil.getInstance().getConnection();
+            conn = ConnectionContextHolder.getConnection();
             String sql = "INSERT INTO board(title, name, content) VALUES(?, ?, ?)";
             ps = conn.prepareStatement(sql);
             ps.setString(1, board.getTitle());
@@ -118,7 +119,7 @@ public class BoardDaoImpl implements BoardDao{
         }catch(Exception ex){
             ex.printStackTrace();
         }finally {
-            DBUtil.close(ps, conn);
+            DBUtil.close(ps);
         }
     }
 
@@ -127,7 +128,7 @@ public class BoardDaoImpl implements BoardDao{
         Connection conn = null;
         PreparedStatement ps = null;
         try{
-            conn = DBUtil.getInstance().getConnection();
+            conn = ConnectionContextHolder.getConnection();
             String sql = "DELETE FROM board WHERE id = ?";
             ps = conn.prepareStatement(sql);
             ps.setLong(1, id);
@@ -135,7 +136,7 @@ public class BoardDaoImpl implements BoardDao{
         }catch(Exception ex){
             ex.printStackTrace();
         }finally {
-            DBUtil.close(ps, conn);
+            DBUtil.close(ps);
         }
     }
 
@@ -144,7 +145,7 @@ public class BoardDaoImpl implements BoardDao{
         Connection conn = null;
         PreparedStatement ps = null;
         try{
-            conn = DBUtil.getInstance().getConnection();
+            conn = ConnectionContextHolder.getConnection();
             String sql = "UPDATE board SET read_count = read_count + 1 WHERE id = ?";
             ps = conn.prepareStatement(sql);
             ps.setLong(1, id);
@@ -152,7 +153,7 @@ public class BoardDaoImpl implements BoardDao{
         }catch(Exception ex){
             ex.printStackTrace();
         }finally {
-            DBUtil.close(ps, conn);
+            DBUtil.close(ps);
         }
     }
 }

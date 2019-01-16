@@ -3,6 +3,8 @@ package my.examples.jdbcboard.servlet;
 import my.examples.jdbcboard.dao.BoardDao;
 import my.examples.jdbcboard.dao.BoardDaoImpl;
 import my.examples.jdbcboard.dto.Board;
+import my.examples.jdbcboard.service.BoardService;
+import my.examples.jdbcboard.service.BoardServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,13 +27,9 @@ public class ReadServlet extends HttpServlet {
             // 오류 화면으로 redirect
             return;
         }
-        BoardDao boardDao = new BoardDaoImpl();
-        Board board = boardDao.getBoard(id);
-        if(board == null){
-            // 오류 화면으로 redirect
-            return;
-        }
-        boardDao.updateReadCount(id);
+
+        BoardService boardService = new BoardServiceImpl();
+        Board board = boardService.getBoard(id);
 
         req.setAttribute("board", board);
 

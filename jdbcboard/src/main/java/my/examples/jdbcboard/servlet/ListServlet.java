@@ -3,6 +3,8 @@ package my.examples.jdbcboard.servlet;
 import my.examples.jdbcboard.dao.BoardDao;
 import my.examples.jdbcboard.dao.BoardDaoImpl;
 import my.examples.jdbcboard.dto.Board;
+import my.examples.jdbcboard.service.BoardService;
+import my.examples.jdbcboard.service.BoardServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,11 +27,8 @@ public class ListServlet extends HttpServlet {
             page = Integer.parseInt(pageStr);
         }catch(Exception ignore){}
         // 2. 1페이지란 0부터 시작하여 3건을 의미한다.
-        int start = page * SIZE -SIZE;
-        int limit = SIZE;
-        // 3. db에서 목록을 읽어들인다.
-        BoardDao boardDao = new BoardDaoImpl();
-        List<Board> boards = boardDao.getBoards(start, limit);
+        BoardService boardService = new BoardServiceImpl();
+        List<Board> boards = boardService.getBoards(page);
         // 4. request에 3에서 구한값을 setAttribute로 담아서 jsp에게 전달한다.
         req.setAttribute("boards", boards);
         // 5. jsp에서는 jstl과 el로 결과를 출력한다.
