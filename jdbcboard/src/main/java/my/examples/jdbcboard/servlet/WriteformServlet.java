@@ -3,6 +3,8 @@ package my.examples.jdbcboard.servlet;
 import my.examples.jdbcboard.dao.BoardDao;
 import my.examples.jdbcboard.dao.BoardDaoImpl;
 import my.examples.jdbcboard.dto.Board;
+import my.examples.jdbcboard.service.BoardService;
+import my.examples.jdbcboard.service.BoardServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,9 +31,9 @@ public class WriteformServlet extends HttpServlet {
         String title = req.getParameter("title");
         String content = req.getParameter("content");
 
-        BoardDao boardDao = new BoardDaoImpl();
+        BoardService boardService = new BoardServiceImpl();
         Board board = new Board(title, content, name);
-        boardDao.addBoard(board);
+        boardService.addBoard(board);
         resp.sendRedirect("/list");
     }
 }

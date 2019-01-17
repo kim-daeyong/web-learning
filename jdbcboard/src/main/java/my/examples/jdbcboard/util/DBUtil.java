@@ -49,13 +49,4 @@ public class DBUtil {
     public static void close(Connection conn){
         try{ conn.close(); } catch(Exception ignore){}
     }
-
-    public static void close(ResultSet rs, PreparedStatement ps){
-        try{ rs.close(); } catch(Exception ignore){}
-        close(ps);
-    }
-
-    public static void close(PreparedStatement ps){
-        try{ ps.close(); } catch(Exception ignore){}
-    }
 }

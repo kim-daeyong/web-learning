@@ -19,16 +19,11 @@ public class BoardServiceImpl implements BoardService{
         int start = page * SIZE -SIZE;
         int limit = SIZE;
 
-        Connection conn = null;
         List<Board> boards = new ArrayList<>();
-        try {
-            conn = DBUtil.getInstance().getConnection();
-            ConnectionContextHolder.setConnection(conn);
+        try(Connection conn = DBUtil.getInstance().getConnection();) {
             boards = boardDao.getBoards(start, limit);
         }catch(Exception ex){
             ex.printStackTrace();
-        }finally {
-            DBUtil.close(conn);
         }
         return boards;
     }
@@ -61,6 +56,23 @@ public class BoardServiceImpl implements BoardService{
             conn = DBUtil.getInstance().getConnection();
             ConnectionContextHolder.setConnection(conn);
             boardDao.deleteBoard(id);
+            conn.commit(); // 트랜젝션 commit
+        }catch(Exception ex){
+            DBUtil.rollback(conn);
+            ex.printStackTrace();
+        }finally {
+            DBUtil.close(conn);
+        }
+    }
+
+    @Override
+    public void addBoard(Board board) {
+        Connection conn = null;
+        BoardDao boardDao = new BoardDaoImpl();
+        try {
+            conn = DBUtil.getInstance().getConnection();
+            ConnectionContextHolder.setConnection(conn);
+            boardDao.addBoard(board);
             conn.commit(); // 트랜젝션 commit
         }catch(Exception ex){
             DBUtil.rollback(conn);

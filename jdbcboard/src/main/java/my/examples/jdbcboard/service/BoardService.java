@@ -12,4 +12,6 @@ public interface BoardService {
     public List<Board> getBoards(int page);
     public Board getBoard(Long id);
     public void deleteBoard(Long id);
+
+    void addBoard(Board board);
 }
