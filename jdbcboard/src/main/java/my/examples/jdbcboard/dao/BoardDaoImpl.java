@@ -2,9 +2,7 @@ package my.examples.jdbcboard.dao;
 
 import my.examples.jdbcboard.dto.Board;
 import my.examples.jdbcboard.util.ConnectionContextHolder;
-import my.examples.jdbcboard.util.DBUtil;
 
-import javax.xml.parsers.DocumentBuilder;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

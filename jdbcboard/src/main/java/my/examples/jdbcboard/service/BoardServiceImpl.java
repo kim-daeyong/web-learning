@@ -21,6 +21,7 @@ public class BoardServiceImpl implements BoardService{
 
         List<Board> boards = new ArrayList<>();
         try(Connection conn = DBUtil.getInstance().getConnection();) {
+            ConnectionContextHolder.setConnection(conn);
             boards = boardDao.getBoards(start, limit);
         }catch(Exception ex){
             ex.printStackTrace();
