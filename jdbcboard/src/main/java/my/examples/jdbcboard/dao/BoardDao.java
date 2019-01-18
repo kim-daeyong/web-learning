@@ -16,4 +16,8 @@ public interface BoardDao {
     void deleteBoard(Long id);
 
     void updateReadCount(long id);
+
+    void updateGroupSeqGt(int groupNo, int groupSeq);
+
+    void addReBoard(Board board);
 }

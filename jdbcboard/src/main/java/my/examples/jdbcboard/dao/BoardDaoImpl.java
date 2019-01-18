@@ -193,4 +193,39 @@ public class BoardDaoImpl implements BoardDao{
             ex.printStackTrace();
         }
     }
+
+    @Override
+    public void updateGroupSeqGt(int groupNo, int groupSeq) {
+        try{
+            Connection conn = ConnectionContextHolder.getConnection();
+            try(PreparedStatement ps = conn.prepareStatement(BoardDaoSQL.UPDATE_GROUP_SEQ_GT);) {
+                ps.setInt(1, groupNo);
+                ps.setInt(2, groupSeq);
+                ps.executeUpdate(); // 입력,수정,삭제 건수 가 리턴된다.
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addReBoard(Board board) {
+        try{
+            Connection conn = ConnectionContextHolder.getConnection();
+            try(PreparedStatement ps = conn.prepareStatement(BoardDaoSQL.INSERT_RE);) {
+
+                //title, user_id, nickname, content
+                ps.setString(1, board.getTitle());
+                ps.setLong(2, board.getUserId());
+                ps.setString(3, board.getNickname());
+                ps.setString(4, board.getContent());
+                ps.setInt(5, board.getGroupNo());
+                ps.setInt(6, board.getGroupSeq() + 1);
+                ps.setInt(7, board.getGroupDepth() + 1);
+                ps.executeUpdate(); // 입력,수정,삭제 건수 가 리턴된다.
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
 }

@@ -40,7 +40,9 @@
 			<c:forEach items="${boards}" var="board">
 			<tr>
 				<td>${board.id}</td>
-				<td><a href="/read?id=${board.id}">${board.title}</a></td>
+				<td>
+					<c:forEach begin="1" end="${board.groupDepth}">&nbsp;</c:forEach>
+					<a href="/read?id=${board.id}">${board.title}</a></td>
 				<td>${board.nickname}</td>
 				<td>${board.regdate}</td>
 				<td>${board.readCount}</td>

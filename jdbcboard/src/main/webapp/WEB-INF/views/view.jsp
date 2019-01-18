@@ -20,7 +20,8 @@
 				${board.content}
 			</div>
 			<div id = "view-bottom">
-				<button type="button" class="btn btn-default col-md-2 col-md-offset-6 col-xs-2 col-xs-offset-5" id = "btn-update" onClick="location.href='writeform.jsp'">수 정</button>
+				<button type="button" class="btn btn-default col-md-2 col-md-offset-6 col-xs-2 col-xs-offset-5" id = "btn-update" onClick="location.href='/rewrite?id=${board.id}'">답 글</button>
+				<button type="button" class="btn btn-default col-md-2 col-md-offset-6 col-xs-2 col-xs-offset-5" id = "btn-update" onClick="location.href='/update?id=${board.id}'">수 정</button>
 				<button type="button" class="btn btn-default col-md-2 col-xs-2" id = "btn-delete" onClick="location.href='/delete?id=${board.id}'" >삭 제</button>
 				<button type="button" class="btn btn-default col-md-2 col-xs-2" id = "btn-list" onClick="location.href='/list'">목 록</button>
 				</div>
