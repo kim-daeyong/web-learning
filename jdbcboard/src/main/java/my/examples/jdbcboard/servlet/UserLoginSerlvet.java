@@ -31,15 +31,15 @@ public class UserLoginSerlvet extends HttpServlet{
         String passwd = req.getParameter("passwd");
 
         UserService userService = UserServiceImpl.getInstance();
-        String encodePasswd = userService.getPasswdByEmail(email);
-        if(encodePasswd != null){
+        User user = userService.getUserByEmail(email);
+        if(user != null && user.getPasswd() != null){
             PasswordEncoder passwordEncoder =
                     PasswordEncoderFactories.createDelegatingPasswordEncoder();
-            boolean matches = passwordEncoder.matches(passwd, encodePasswd);
+            boolean matches = passwordEncoder.matches(passwd, user.getPasswd());
             if(matches){
                 // 로그인정보를 세션에 저장.
                 HttpSession session = req.getSession();
-                session.setAttribute("logininfo", email);
+                session.setAttribute("logininfo", user); // 회원정보를 세션에 전달한다.
                 System.out.println("암호가 맞아요.");
             }else{
                 // 암호가 틀렸어요.

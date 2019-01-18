@@ -5,11 +5,16 @@ import java.util.Date;
 // id | title  | content  | name | regdate             | read_count
 public class Board {
     private Long id;
+    private Long userId;
+    private String nickname;
     private String title;
     private String content;
     private String name;
     private Date regdate;
     private int readCount;
+    private int groupNo;
+    private int groupSeq;
+    private int groupDepth;
 
     public Board(){
         this.regdate = new Date();
@@ -28,6 +33,46 @@ public class Board {
         this.id = id;
         this.regdate = regdate;
         this.readCount = readCount;
+    }
+
+    public int getGroupNo() {
+        return groupNo;
+    }
+
+    public void setGroupNo(int groupNo) {
+        this.groupNo = groupNo;
+    }
+
+    public int getGroupSeq() {
+        return groupSeq;
+    }
+
+    public void setGroupSeq(int groupSeq) {
+        this.groupSeq = groupSeq;
+    }
+
+    public int getGroupDepth() {
+        return groupDepth;
+    }
+
+    public void setGroupDepth(int groupDepth) {
+        this.groupDepth = groupDepth;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getId() {

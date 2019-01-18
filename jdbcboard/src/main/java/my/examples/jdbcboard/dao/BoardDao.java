@@ -10,6 +10,8 @@ public interface BoardDao {
     public List<Board> getBoards(int start, int limit);
 
     void addBoard(Board board);
+    Long getLastInsertId();
+    void updateLastInsertId(Long id);
 
     void deleteBoard(Long id);
 

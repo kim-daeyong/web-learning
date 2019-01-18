@@ -1,6 +1,5 @@
 package my.examples.jdbcboard.service;
 
-import my.examples.jdbcboard.dao.BoardDao;
 import my.examples.jdbcboard.dao.UserDao;
 import my.examples.jdbcboard.dao.UserDaoImpl;
 import my.examples.jdbcboard.dto.User;
@@ -34,15 +33,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String getPasswdByEmail(String email) {
-        String passwd = null;
+    public User getUserByEmail(String email) {
+        User user = null;
         UserDao userDao = UserDaoImpl.getInstance();
         try(Connection conn = DBUtil.getInstance().getConnection();) {
             ConnectionContextHolder.setConnection(conn);
-            passwd = userDao.getPasswdByEmail(email);
+            user = userDao.getUserByEmail(email);
         }catch(Exception ex){
             ex.printStackTrace();
         }
-        return passwd;
+        return user;
     }
 }

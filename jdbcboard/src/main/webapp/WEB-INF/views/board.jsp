@@ -19,7 +19,14 @@
 	
 	<h1 style="text-align:center; margin-top:50px;">게시판 만들기 </h1>
 	<div style="width:50%; margin:0 auto; padding-top:50px;">
-		<a class="btn btn-default" href="/write" id="" style='width:15%; float:right;'>글쓰기</a>
+		<c:if test="${sessionScope.logininfo == null}">
+			<a class="btn btn-default" href="/login" id="" style='width:15%; float:right;'>로그인</a>
+		</c:if>
+		<c:if test="${sessionScope.logininfo != null}">
+			${sessionScope.logininfo.nickname}&nbsp;
+			<a class="btn btn-default" href="/write" id="" style='width:15%; float:right;'>글쓰기</a> &nbsp;
+			<a class="btn btn-default" href="/logout" id="" style='width:15%; float:right;'>로그아웃</a>
+		</c:if>
 	</div>
 	<table class = "table table-bordered table-hover" style='width:50%; margin:50px auto;'>
 		<thead style="background-color:#ebebeb;">
@@ -34,7 +41,7 @@
 			<tr>
 				<td>${board.id}</td>
 				<td><a href="/read?id=${board.id}">${board.title}</a></td>
-				<td>${board.name}</td>
+				<td>${board.nickname}</td>
 				<td>${board.regdate}</td>
 				<td>${board.readCount}</td>
 			</tr>

@@ -3,6 +3,7 @@ package my.examples.jdbcboard.servlet;
 import my.examples.jdbcboard.dao.BoardDao;
 import my.examples.jdbcboard.dao.BoardDaoImpl;
 import my.examples.jdbcboard.dto.Board;
+import my.examples.jdbcboard.dto.User;
 import my.examples.jdbcboard.service.BoardService;
 import my.examples.jdbcboard.service.BoardServiceImpl;
 
@@ -20,16 +21,6 @@ import java.io.IOException;
 public class WriteformServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        String email = (String)session.getAttribute("logininfo");
-        if(email == null){
-            System.out.println("-_-;;;;; 로그인 부탁!!");
-            resp.sendRedirect("/login");
-            return;
-        }else{
-            System.out.println("로그인 OK");
-        }
-
         RequestDispatcher requestDispatcher =
                 req.getRequestDispatcher("/WEB-INF/views/writeform.jsp");
         requestDispatcher.forward(req, resp);
@@ -37,13 +28,17 @@ public class WriteformServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        String name = req.getParameter("name");
         String title = req.getParameter("title");
         String content = req.getParameter("content");
 
+        User user = (User) req.getSession().getAttribute("logininfo");
+
         BoardService boardService = new BoardServiceImpl();
-        Board board = new Board(title, content, name);
+        Board board = new Board();
+        board.setTitle(title);
+        board.setContent(content);
+        board.setUserId(user.getId());
+        board.setNickname(user.getNickname());
         boardService.addBoard(board);
         resp.sendRedirect("/list");
     }

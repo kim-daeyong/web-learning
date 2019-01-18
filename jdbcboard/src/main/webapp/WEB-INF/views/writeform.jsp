@@ -23,7 +23,7 @@
 
                 <div class="form-group col-md-4 cos-xs-4" style="float: left;">
                     <label for="name">이름:</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter nickName" name="name">
+                    <label>${sessionScope.logininfo.nickname}</label>
                 </div>
 
                 <div class="form-group col-md-4 offset-md-4 cos-xs-4" style="float: right;">

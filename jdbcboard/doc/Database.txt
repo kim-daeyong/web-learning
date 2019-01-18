@@ -26,3 +26,6 @@ PRIMARY KEY(id)
 
 insert into user (id, name, nickname, email, passwd)
 values(1, 'kimsp', 'urstory','urstory@gmail.com', '');
+
+insert into board (title, user_id, nickname, content, group_no, group_seq, group_depth)
+values( 'title1', 1, 'kim', 'content1',  0 , 0, 0 );

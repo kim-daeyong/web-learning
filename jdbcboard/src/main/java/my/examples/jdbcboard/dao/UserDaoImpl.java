@@ -34,8 +34,8 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public String getPasswdByEmail(String email) {
-        String passwd = null; // return할 타입을 선언한다.
+    public User getUserByEmail(String email) {
+        User user = null; // return할 타입을 선언한다.
 
         Connection conn = ConnectionContextHolder.getConnection();
         try{
@@ -46,7 +46,14 @@ public class UserDaoImpl implements UserDao{
                 try(ResultSet rs = ps.executeQuery();){ // SELECT 문장을 실행, executeUpdate() - insert, update, delete
 
                     if (rs.next()) {
-                        passwd = rs.getString(1);
+                        user = new User();
+                        //id, name, nickname, email, passwd, regdate
+                        user.setId(rs.getLong(1));
+                        user.setName(rs.getString(2));
+                        user.setNickname(rs.getString(3));
+                        user.setEmail(rs.getString(4));
+                        user.setPasswd(rs.getString(5));
+                        user.setRegdate(rs.getDate(6));
                     }
                 }
             }
@@ -55,6 +62,6 @@ public class UserDaoImpl implements UserDao{
             ex.printStackTrace();
         }
 
-        return passwd;
+        return user;
     }
 }
