@@ -37,7 +37,8 @@
 
 
     <!--
-Dice dice = new Dice(6);
+Dice dice1 = 싱글턴으로 6을 가지는 Dice객체
+Dice dice2 = 싱글턴으로 6을 가지는 Dice객체
 -->
     <bean id="dice" class="soundsystem.Dice">
         <constructor-arg value="6"/>

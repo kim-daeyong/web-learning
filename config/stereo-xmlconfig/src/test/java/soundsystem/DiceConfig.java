@@ -26,40 +26,41 @@ public class DiceConfig {
     스프링 컨테이너가 kim이란 메소드를 호출하는데 파라미터로 Dice객체를 자동으로 넣어준다.
      */
     @Bean
-    public Player kim(){
+    public Player kim(Dice dice){
         System.out.println("kim()");
         System.out.println(this.getClass().getName());
         Player player = new Player();
-        player.setDice(dice());
+        player.setDice(dice);
         player.setName("kim");
         return player;
     }
 
     @Bean
-    public Player kang(){
+    public Player kang(Dice dice){
         System.out.println("kang()");
         Player player = new Player();
-        player.setDice(dice());
+        player.setDice(dice);
         player.setName("kang");
         return player;
     }
 
     @Bean
-    public Player lee(){
+    public Player lee(Dice dice){
         System.out.println("lee()");
         Player player = new Player();
-        player.setDice(dice());
+        player.setDice(dice);
         player.setName("lee");
         return player;
     }
 
     @Bean
-    public Game game(){
+    public Game game(Player kim, Player kang, Player lee){
+        System.out.println("Game()");
         Game game = new Game();
         List<Player> list = new ArrayList<>();
-        list.add(kim());
-        list.add(kang());
-        list.add(lee());
+        list.add(kim);
+        list.add(kang);
+        list.add(lee);
         game.setPlayerList(list);
         return game;
     }
