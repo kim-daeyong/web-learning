@@ -3,8 +3,7 @@ package my.examples.springjdbc.dto;
 import java.util.Date;
 
 public class User {
-    private Long id;
-    private String name;
+    private Long user_id;
     private String nickname;
     private String email;
     private String passwd;
@@ -14,20 +13,12 @@ public class User {
         regdate = new Date();
     }
 
-    public Long getId() {
-        return id;
+    public Long getUser_Id() {
+        return user_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setUser_Id(Long user_id) {
+        this.user_id = user_id;
     }
 
     public String getNickname() {
@@ -65,8 +56,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "user_id=" + user_id +
                 ", nickname='" + nickname + '\'' +
                 ", email='" + email + '\'' +
                 ", passwd='" + passwd + '\'' +

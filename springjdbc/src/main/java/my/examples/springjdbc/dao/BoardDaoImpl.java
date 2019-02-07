@@ -5,14 +5,17 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static my.examples.springjdbc.dao.BoardDaoSqls.getBoards;
+import static my.examples.springjdbc.dao.BoardDaoSqls.*;
 
+
+@Repository
 public class BoardDaoImpl implements BoardDao {
     private SimpleJdbcInsert simpleJdbcInsert;
     private NamedParameterJdbcTemplate jdbc;
@@ -24,8 +27,8 @@ public class BoardDaoImpl implements BoardDao {
         Map<String, Object> paraMap = new HashMap<>();
         paraMap.put("post_id", post_id);
         try {
-            board = jdbc.queryForObject(getBoards, paraMap, rowMapper);
-        }catch(Exception ex){
+            board = jdbc.queryForObject(getBoard, paraMap, rowMapper);
+        } catch (Exception ex) {
             System.out.println("게시물이 없습니다.");
         }
 
@@ -35,15 +38,12 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public List<Board> getBoards(int start, int limit) {
-        List<Board> list = new ArrayList<>();
-        Map<String, Object> paraMap = new HashMap<>(start, limit);
-        try{
-           list = jdbc.query(getBoards, paraMap,rowMapper);
-
-//         list.forEach((free) -> System.out.println(free));
-        }catch(Exception ex){
-            System.out.println("게시물이 없습니다.");
-        }
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("start", start);
+        paramMap.put("limit", limit);
+        List<Board> list = jdbc.query(SELECT_BY_PAGING, paramMap, rowMapper);
+        System.out.println(list);
         return list;
     }
+
 }

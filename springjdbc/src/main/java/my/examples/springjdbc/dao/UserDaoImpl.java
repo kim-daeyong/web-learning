@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao{
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 		this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
 				.withTableName("user")
-				.usingGeneratedKeyColumns("id");
+				.usingGeneratedKeyColumns("user_id");
 	}
 
 	@Override
@@ -65,6 +65,15 @@ public class UserDaoImpl implements UserDao{
 
 		return jdbc.query(SELECT_USERS, rowMapper);
 	}
+	@Override
+	public List<User> selectByPage(int start, int limit) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("start", start);
+		paramMap.put("limit", limit);
+		return jdbc.query(SELECT_USERS, paramMap, rowMapper);
+	}
+
+
 
 	@Override
 	public User selectUserByEmail(String email) {
@@ -83,7 +92,6 @@ public class UserDaoImpl implements UserDao{
 	public Long addUser(User user) {
 
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("name", user.getName());
 		paramMap.put("nickname", user.getNickname());
 		paramMap.put("email", user.getEmail());
 		paramMap.put("passwd", user.getPasswd());
@@ -93,12 +101,12 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public void updateUser(Long id, String name, String nickname) {
+	public void updateUser(Long user_id, String nickname) {
 
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("id", id);
-		paramMap.put("name", name);
+		paramMap.put("user_id", user_id);
 		paramMap.put("nickname", nickname);
 		jdbc.update(UPDATE_USER, paramMap);
 	}
+
 }

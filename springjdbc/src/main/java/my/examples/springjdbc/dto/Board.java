@@ -6,6 +6,7 @@ public class Board {
 
     private long post_id;
     private String nickname;
+    private String title;
     private String content;
     private Date regdate;
     private long view;
@@ -14,18 +15,21 @@ public class Board {
         this.regdate = regdate;
     }
 
-    public Board(long post_id, String nickname, String content) {
+    public Board(long post_id, String nickname,String title, String content) {
+        this();
         this.post_id = post_id;
         this.nickname = nickname;
         this.content = content;
+        this.title = title;
     }
 
-    public Board(long post_id, String nickname, String content, Date regdate, long view) {
+    public Board(long post_id, String nickname,String title, String content, Date regdate, long view) {
         this.post_id = post_id;
         this.nickname = nickname;
         this.content = content;
         this.regdate = regdate;
         this.view = view;
+        this.title = title;
     }
 
     public long getPost_id() {
@@ -68,11 +72,20 @@ public class Board {
         this.view = view;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return "Board{" +
                 "post_id=" + post_id +
                 ", nickname='" + nickname + '\'' +
+                ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", regdate=" + regdate +
                 ", view=" + view +
