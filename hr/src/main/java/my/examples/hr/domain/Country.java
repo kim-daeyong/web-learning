@@ -24,7 +24,7 @@ public class Country {
     private Set<Location> locations;
 
     public Country(){
-        locations = new HashSet<>();
+ //       locations = new HashSet<>();
     }
 
 }
